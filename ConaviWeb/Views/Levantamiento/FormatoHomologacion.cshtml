@@ -1405,6 +1405,7 @@
             getPredio(idPredio);
         }
         $(document).ready(function () {
+            $(".breadcrumb").html("<li><i class='fa fa-home'></i></li><li><a href='@Url.Action("Index","Levantamiento")'>Lista de predios</a></li>");
             if (idPredio == null) {
                 showTipoVialidad(0);
                 showTipoAcceso(0);
@@ -1457,7 +1458,7 @@
             $("[name='CveOtrasObservaciones'][value=99]").on("change", function (e) {
                 this.checked ? $("[name='OtraObservacion']").prop("disabled", false) : $("[name='OtraObservacion']").prop("disabled", true).val("");
             });
-            $(".breadcrumb").html("<li><i class='fa fa-home'></i></li><li><a href='/Levantamiento'>Lista de predios</a></li>");
+            $(".breadcrumb").html("<li><i class='fa fa-home'></i></li><li><a href='@Url.Action("Index","Levantamiento")'>Lista de predios</a></li>");
             $('#fecha_recorrido').datepicker({
                 dateFormat: 'yy/mm/dd',
                 changeYear: true

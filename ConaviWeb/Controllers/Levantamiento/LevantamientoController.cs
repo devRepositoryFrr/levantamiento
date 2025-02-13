@@ -46,6 +46,12 @@ namespace ConaviWeb.Controllers.Levantamiento
             //ViewBag.EstadoCatalogo = (new SelectList(catEstados, "Clave", "Descripcion"));
             return View("../Levantamiento/PropuestaConceptual");
         }
+        public async Task<IActionResult> SeleccionArchivos()
+        {
+            var catEstados = await _levantamientoRepository.GetEstados();
+            ViewBag.EstadoCatalogo = (new SelectList(catEstados, "Clave", "Descripcion"));
+            return View("../Levantamiento/SeleccionArchivos");
+        }
         [HttpPost]
         public async Task<IActionResult> GetMunicipios(string cveedo)
         {

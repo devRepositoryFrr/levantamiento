@@ -555,8 +555,7 @@
     <script type="text/javascript">
         var table;
         $(document).ready(function () {
-            $(".breadcrumb").html("<li><i class='fa fa-home'></i></li><li><a href='/'>Inicio</a></li>");
-            //showAlert();
+            $(".breadcrumb").html("<li><i class='fa fa-home'></i></li><li><a href='/Levantamiento'>Inicio</a></li>");
             showTable();
             showFullTable();
             $('#showModalTrashPredio').on('show.bs.modal', function (e) {
@@ -565,13 +564,11 @@
             });
         });
         function showTable() {
-            var urlTipo = "";
-            urlTipo = "/Levantamiento/PrediosAdquisicion";
             table = $('#tablePredios').DataTable({
                 "proccessing": true,
                 "serverSide": false,
                 "ajax": {
-                    url: urlTipo,
+                    url: "@Url.Action("PrediosAdquisicion", "Levantamiento")",
                     type: 'GET',
                     headers: { 'RequestVerificationToken': $('@Html.AntiForgeryToken()').val() },
                     complete: function () {
@@ -632,8 +629,8 @@
                 "targets": 9,
                 "data": null,
                 "render": function (data, type, row, meta) {
-                    var ret = '<a href="/Levantamiento/Predios?id=' + data.id + '" data-pred-id="' + row.id + '" class="gold" type="button" title="Editar" style="font-size:20px;"><span style="cursor:pointer;" class="fa fa-pencil-square-o" aria-hidden="true"></span></a><br><a data-pred-id="' + row.id + '" class="gold" type="button" title="Eliminar" data-toggle="modal" data-target="#showModalTrashPredio" style="font-size:20px;"><span style="cursor:pointer;" class="fa fa-trash-o" aria-hidden="true"></span></a>';
-                    ret += '<br><a href="/Levantamiento/HomologacionFiles?id=' + data.id + '" class="gold" type="button" title="Cargar archivos" style="font-size:20px;"><span style="cursor:pointer;" class="fa fa-files-o" aria-hidden="true"></span></a>';
+                    var ret = '<a href="@Url.Action("Predios","Levantamiento")?id=' + data.id + '" data-pred-id="' + row.id + '" class="gold" type="button" title="Editar" style="font-size:20px;"><span style="cursor:pointer;" class="fa fa-pencil-square-o" aria-hidden="true"></span></a><br><a data-pred-id="' + row.id + '" class="gold" type="button" title="Eliminar" data-toggle="modal" data-target="#showModalTrashPredio" style="font-size:20px;"><span style="cursor:pointer;" class="fa fa-trash-o" aria-hidden="true"></span></a>';
+                    ret += '<br><a href="@Url.Action("HomologacionFiles","Levantamiento")?id=' + data.id + '" class="gold" type="button" title="Cargar archivos" style="font-size:20px;"><span style="cursor:pointer;" class="fa fa-files-o" aria-hidden="true"></span></a>';
                     return ret;
                 },
                 "sortable": false,
@@ -641,14 +638,12 @@
             },
         ];
         function showFullTable() {
-            var urlTipo = "";
-            urlTipo = "/Levantamiento/FullPrediosAdquisicion";
             table = $('#tableFullPredios').DataTable({
                 "dom": "Bfrtip",
                 "proccessing": true,
                 "serverSide": false,
                 "ajax": {
-                    url: urlTipo,
+                    url: '@Url.Action("FullPrediosAdquisicion","Levantamiento")',
                     type: 'POST',
                     headers: { 'RequestVerificationToken': $('@Html.AntiForgeryToken()').val() },
                     complete: function () {
@@ -676,14 +671,14 @@
                             $('row c', sheet).each(function () {
                                 // if cell starts with http
                                 if ($('is t', this).text().indexOf("http") === 0) {
-                                    // (2.) change the type to `str` which is a formula
-                                    $(this).attr('t', 'str');
-                                    //append the formula
-                                    $(this).append('<f>' + 'HYPERLINK("' + $('is t', this).text() + '","' + $('is t', this).text() + '")' + '</f>');
-                                    //remove the inlineStr
-                                    $('is', this).remove();
-                                    // (3.) underline
-                                    $(this).attr('s', '4');
+                                // (2.) change the type to `str` which is a formula
+                                $(this).attr('t', 'str');
+                                //append the formula
+                                $(this).append('<f>' + 'HYPERLINK("' + $('is t', this).text() + '","' + $('is t', this).text() + '")' + '</f>');
+                                //remove the inlineStr
+                                $('is', this).remove();
+                                // (3.) underline
+                                $(this).attr('s', '4');
                                 }
                             });
                         }
@@ -861,8 +856,8 @@
             {
                 "name": "PredioAptoVivienda", "data": "predioAptoVivienda", "targets": 130,
                 "render": function (data) {
-                    return data == 1 ? 'SI' : 'NO'                }
-            },
+                    return data == 1 ? 'SI' : 'NO'}
+                },
             { "name": "ObservacionesPredioApto", "data": "observacionesPredioApto", "targets": 131 },
             { "name": "PorcentajeSuperficieUtillizable", "data": "porcentajeSuperficieUtillizable", "targets": 132 },
             { "name": "ObservacionesAdicionales", "data": "observacionesAdicionales", "targets": 133 },
