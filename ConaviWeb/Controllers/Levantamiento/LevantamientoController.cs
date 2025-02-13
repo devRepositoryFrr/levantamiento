@@ -14,9 +14,11 @@ using static ConaviWeb.Models.AlertsViewModel;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ConaviWeb.Controllers.Levantamiento
 {
+    [Authorize]
     public class LevantamientoController : Controller
     {
         private readonly ILevantamientoRepository _levantamientoRepository;
@@ -30,8 +32,12 @@ namespace ConaviWeb.Controllers.Levantamiento
         {
             return View("../Levantamiento/ListaPredios");
         }
-        public IActionResult HomologacionFiles()
+        public async Task<IActionResult> HomologacionFilesAsync()
         {
+            var seccion = await _levantamientoRepository.GetSeccion();
+            var archivo = await _levantamientoRepository.GetArchivo();
+            ViewData["Seccion"] = seccion;
+            ViewData["Archivo"] = archivo;
             return View("../Levantamiento/ArchivosHomologacion");
         }
         public async Task<IActionResult> Predios()

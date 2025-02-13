@@ -131,6 +131,16 @@ namespace ConaviWeb
                 await next();
             });
 
+            //Redirecciona las solicitudes no autorizadas 401
+            app.UseStatusCodePages(context => {
+                var response = context.HttpContext.Response;
+
+                if (response.StatusCode == (int)HttpStatusCode.Unauthorized ||
+                        response.StatusCode == (int)HttpStatusCode.Forbidden)
+                    response.Redirect("/LoginSedatu");
+                return System.Threading.Tasks.Task.CompletedTask;
+            });
+
             app.UseHttpsRedirection();
             //Se requiere para acceder a los archivoscargados
             app.UseStaticFiles();
@@ -144,7 +154,7 @@ namespace ConaviWeb
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Inicio}/{action=Index}/{id?}");
+                    pattern: "{controller=LoginSedatu}/{action=Index}/{id?}");
             });
         }
     }

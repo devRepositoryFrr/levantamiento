@@ -13,6 +13,8 @@ namespace ConaviWeb.Data.Levantamientos
         Task<IEnumerable<Catalogo>> GetEstados();
         Task<IEnumerable<Catalogo>> GetMunicipios(string estado);
         Task<IEnumerable<Catalogo>> GetLocalidades(string estado, string cvemun);
+        Task<IEnumerable<Catalogo>> GetSeccion();
+        Task<IEnumerable<Archivo>> GetArchivo();
         Task<bool> InsertFormatoLevantamiento(Predio predio);
         Task<Predio> GetFormatoLevantamiento(int id);
         Task<IEnumerable<Predio>> GetPrediosAdquisicion();
