@@ -46,6 +46,22 @@ namespace ConaviWeb.Data.Levantamientos
                        ";
             return await db.QueryAsync<Catalogo>(sql, new { CveEdo = cveedo, CveMun = cvemun });
         }
+        public async Task<IEnumerable<Catalogo>> GetSeccion()
+        {
+            var db = DbConnection();
+            var sql = @"
+                        select id,descripcion from prod_predios.c_archivo_seccion where activo = 1;
+                       ";
+            return await db.QueryAsync<Catalogo>(sql, new { });
+        }
+        public async Task<IEnumerable<Archivo>> GetArchivo()
+        {
+            var db = DbConnection();
+            var sql = @"
+                        select id,descripcion archivoH,id_tipo_archivo idSeccion,orden from prod_predios.c_archivos where activo = 1;
+                       ";
+            return await db.QueryAsync<Archivo>(sql, new { });
+        }
         public async Task<bool> InsertFormatoLevantamiento(Predio predio)
         {
             var db = DbConnection();

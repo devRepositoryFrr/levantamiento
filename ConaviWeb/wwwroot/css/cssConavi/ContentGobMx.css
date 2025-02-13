@@ -2,3 +2,6 @@
 table {
     font-size: 12px; /* Set the font size to 16 pixels */
 }
+.hidden {
+    display: none !important;
+}
